@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 class RodAndFrameSetting{
 	float rodAngle;
@@ -40,7 +41,9 @@ public class RodAndFrameController : MonoBehaviour {
 	public GameObject Rod;
 	public GameObject Frame;
 
-	public RodAndFrameData rodandframeData;
+    //public RodAndFrameData rodandframeData;
+
+    public WriteRodAndFrameData writeData;
 
 	public float Delta = 1f;
 	bool isKeyboardActive = false;
@@ -101,35 +104,41 @@ public class RodAndFrameController : MonoBehaviour {
 			// Wait for ET to be initialized
 			
 			Debug.Log ("ET Initialized");
+
 			// Set rod and frame angles
 			Debug.Log(rodandframeSettingList[count].ToString());
 			frameAngle = rodandframeSettingList[count].FrameAngle;
-			rodAngle = rodandframeSettingList[count++].RodAngle;
+			rodAngle = rodandframeSettingList[count].RodAngle;
+
 			Rod.transform.localRotation = Quaternion.Euler (0f, 0f, rodAngle);
 			Frame.transform.localRotation = Quaternion.Euler (0f, 0f, frameAngle);
 
 			// FadePanel out
 			yield return StartCoroutine(panelFader.FadeOut());
 
-			// Start recording Eyetracker, start recording rod and frame position
-			runNumber+=1;
 
-			rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, true);
-			rodandframeData.IsRecorded = true;
+
+			//rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, true);
+			//rodandframeData.IsRecorded = true;
 
 			// Set keyboard Active
 			isKeyboardActive = true;
 			// wait for confirm key to be pressed
 			yield return StartCoroutine(WaitForConfirmation());
 
-			rodandframeData.IsRecorded = false;
+            // Start recording Eyetracker, start recording rod and frame position
+            writeData.WriteToFile(WriteRodAndFrameData.Instance.participantID, count.ToString(), rodandframeSettingList[count].FrameAngle.ToString(), rodandframeSettingList[count++].RodAngle.ToString(), Rod.transform.rotation.eulerAngles.z.ToString());
+            runNumber += 1;
 
-			// Set keyboard inactive
-			isKeyboardActive = false;
+            //rodandframeData.IsRecorded = false;
+
+            // Set keyboard inactive
+            isKeyboardActive = false;
 
 			// Record current angle
-			rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, false);
-			rodandframeData.IsRecorded = true;
+			//rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, false);
+			//rodandframeData.IsRecorded = true;
+
 //			userAngle = Rod.transform.rotation.eulerAngles.z;
 //			deviationAngle = userAngle - rodAngle;
 			// Write angle to files
@@ -146,16 +155,19 @@ public class RodAndFrameController : MonoBehaviour {
 
 			}
 		}
-		yield return null;
-		Application.Quit ();
 
-	}
+		yield return null;
+
+        Debug.Log("This is over");
+        //SceneManager.LoadScene("");
+
+    }
 	void Update () {
+
 		if (isKeyboardActive) {
 			var z = Rod.transform.localRotation.eulerAngles.z;
 			// Keyboard
-			if (Input.GetKey ("left")) {
-				
+			if (Input.GetKey ("left")) {			
 				Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + Delta);
 			}
 			if (Input.GetKey ("right")) {
@@ -163,7 +175,6 @@ public class RodAndFrameController : MonoBehaviour {
 			}
             if (Input.GetKey("a"))
             {
-
                 Rod.transform.localRotation = Quaternion.Euler(Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + 0.1f * Delta);
             }
             if (Input.GetKey("d"))
@@ -174,9 +185,8 @@ public class RodAndFrameController : MonoBehaviour {
 			{
 				isConfirmed = true;	
 			}
-			// Joystick
 
-			Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));//check what this line is doing
+			Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));
  
 		}
 
