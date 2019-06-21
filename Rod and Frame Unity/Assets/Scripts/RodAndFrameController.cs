@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-class RodAndFrameSetting{
+class RodAndFrameSetting {
 	float rodAngle;
 	float frameAngle;
 	public RodAndFrameSetting(float rAngle, float fAngle)
@@ -22,7 +22,9 @@ class RodAndFrameSetting{
 		return "Rod angle: " + rodAngle.ToString () + "; " + "Frame angle: " + frameAngle.ToString ();
 	}
 }
-public static class MyExtension{
+
+
+public static class MyExtension {
 	private static System.Random rng = new System.Random();  
 
 	public static void Shuffle<T>(this System.Collections.Generic.List<T> list)  
@@ -41,11 +43,11 @@ public class RodAndFrameController : MonoBehaviour {
 	public GameObject Rod;
 	public GameObject Frame;
 
-    //public RodAndFrameData rodandframeData;
-
     public WriteRodAndFrameData writeData;
 
-	public float Delta = 1f;
+    public int numberOfSets;
+    public float Delta = 1f;
+
 	bool isKeyboardActive = false;
 	bool isStopConditionReached = false;
 	bool isConfirmed = false;
@@ -55,8 +57,8 @@ public class RodAndFrameController : MonoBehaviour {
 
 	int count;
 	int setCount = 0;
-	int numberOfSets = 5;
-	int runNumber;
+
+	//int runNumber;
 	int counter = 0;
 
 	//DataLogger dataLogger;
@@ -66,17 +68,8 @@ public class RodAndFrameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-//		var canvas = GameObject.FindObjectOfType<Canvas> ();
-//		if (canvas!=null)
-//		{
-//			panelFader = canvas.GetComponent<UIFader> ();
-//		}
+		
 		panelFader = GameObject.FindObjectOfType<UIFader> ();
-		//dataLogger = GetComponent<DataLogger>();
-
-			//if (rodandframeData != null)
-				//log data here
-		//}
 
 		rodandframeSettingList.Add (new RodAndFrameSetting (20f, 18f));
 		rodandframeSettingList.Add (new RodAndFrameSetting (340f, 18f));
@@ -91,8 +84,8 @@ public class RodAndFrameController : MonoBehaviour {
 	{
 		while (!isConfirmed) {
 			yield return null;
-
 		}
+
 		isConfirmed = false;
 	}
 	private IEnumerator StartGame()
@@ -103,7 +96,7 @@ public class RodAndFrameController : MonoBehaviour {
  			yield return StartCoroutine(panelFader.FadeIn());
 			// Wait for ET to be initialized
 			
-			Debug.Log ("ET Initialized");
+			Debug.Log ("ET Initialized on count " +count);
 
 			// Set rod and frame angles
 			Debug.Log(rodandframeSettingList[count].ToString());
@@ -117,31 +110,21 @@ public class RodAndFrameController : MonoBehaviour {
 			yield return StartCoroutine(panelFader.FadeOut());
 
 
-
-			//rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, true);
-			//rodandframeData.IsRecorded = true;
-
 			// Set keyboard Active
 			isKeyboardActive = true;
 			// wait for confirm key to be pressed
 			yield return StartCoroutine(WaitForConfirmation());
 
-            // Start recording Eyetracker, start recording rod and frame position
-            writeData.WriteToFile(WriteRodAndFrameData.Instance.participantID, count.ToString(), rodandframeSettingList[count].FrameAngle.ToString(), rodandframeSettingList[count++].RodAngle.ToString(), Rod.transform.rotation.eulerAngles.z.ToString());
-            runNumber += 1;
+            // Start recording rod and frame position
+            if(writeData != null)
+             writeData.WriteToFile(writeData.participantID, (count *(setCount+1)).ToString(), rodandframeSettingList[count].RodAngle.ToString(), rodandframeSettingList[count].FrameAngle.ToString(), Rod.transform.rotation.eulerAngles.z.ToString());
+            count += 1;
+            //runNumber += 1;
 
             //rodandframeData.IsRecorded = false;
 
             // Set keyboard inactive
             isKeyboardActive = false;
-
-			// Record current angle
-			//rodandframeData.UpdateSettings (runNumber, rodAngle, frameAngle, false);
-			//rodandframeData.IsRecorded = true;
-
-//			userAngle = Rod.transform.rotation.eulerAngles.z;
-//			deviationAngle = userAngle - rodAngle;
-			// Write angle to files
 
 			// Check stopping condition 
 			if (count == rodandframeSettingList.Count) {
@@ -152,7 +135,6 @@ public class RodAndFrameController : MonoBehaviour {
 
 			if (setCount == numberOfSets) {
 				isStopConditionReached = true;
-
 			}
 		}
 
@@ -162,6 +144,7 @@ public class RodAndFrameController : MonoBehaviour {
         //SceneManager.LoadScene("");
 
     }
+
 	void Update () {
 
 		if (isKeyboardActive) {
