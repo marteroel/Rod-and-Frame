@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-class RodAndFrameSetting {
+namespace RodAndFrame { 
+    class RodAndFrameSetting {
 	float rodAngle;
 	float frameAngle;
 	public RodAndFrameSetting(float rAngle, float fAngle)
@@ -175,4 +176,5 @@ public class RodAndFrameController : MonoBehaviour {
 
 	}
 
+}
 }

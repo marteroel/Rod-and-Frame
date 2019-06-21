@@ -2,10 +2,12 @@
 using UnityEngine;
 using System.Collections;
 
-  // This class is used to fade in and out groups of UI
+namespace RodAndFrame { 
+    // This class is used to fade in and out groups of UI
     // elements.  It contains a variety of functions for
     // fading in different ways.
-public class UIFader : MonoBehaviour
+
+    public class UIFader : MonoBehaviour
 {
     public event Action OnFadeInComplete;                   // This event is triggered when the UI elements have finished fading in.
     public event Action OnFadeOutComplete;                  // This event is triggered when the UI elements have finished fading out.
@@ -170,5 +172,6 @@ public class UIFader : MonoBehaviour
 
         Visible = false;
     }
+}
 }
 

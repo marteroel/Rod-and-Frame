@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WriteRodAndFrameData : MonoBehaviour {
+namespace RodAndFrame { 
+    public class WriteRodAndFrameData : MonoBehaviour {
 
     private static WriteRodAndFrameData instance = null;
     public string participantID;
@@ -40,4 +41,5 @@ public class WriteRodAndFrameData : MonoBehaviour {
         file.WriteLine(stringLine);
         file.Close();
     }
+}
 }
