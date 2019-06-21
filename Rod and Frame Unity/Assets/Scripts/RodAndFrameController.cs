@@ -39,7 +39,7 @@ public static class MyExtension{
 public class RodAndFrameController : MonoBehaviour {
 	public GameObject Rod;
 	public GameObject Frame;
-	//public EyeTrackerData eyetrackerData;
+
 	public RodAndFrameData rodandframeData;
 
 	public float Delta = 1f;
@@ -71,10 +71,10 @@ public class RodAndFrameController : MonoBehaviour {
 		panelFader = GameObject.FindObjectOfType<UIFader> ();
 		//dataLogger = GetComponent<DataLogger>();
 
-		//if (dataLogger != null) {
 			//if (rodandframeData != null)
-				//dataLogger.StudyData.Add (rodandframeData);
+				//log data here
 		//}
+
 		rodandframeSettingList.Add (new RodAndFrameSetting (20f, 18f));
 		rodandframeSettingList.Add (new RodAndFrameSetting (340f, 18f));
 		rodandframeSettingList.Add (new RodAndFrameSetting (20f, -18f));
@@ -176,14 +176,8 @@ public class RodAndFrameController : MonoBehaviour {
 			}
 			// Joystick
 
-
-			Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));
+			Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));//check what this line is doing
  
-            /*
-			if (Input.GetButtonDown("AButton"))
-			{
-				isConfirmed = true;	
-			}*/
 		}
 
 	}
