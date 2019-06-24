@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RodAndFrame { 
+namespace RodAndFrame {
     public class WriteRodAndFrameData : MonoBehaviour {
 
-    private static WriteRodAndFrameData instance = null;
-    public string participantID;
+        private static WriteRodAndFrameData instance = null;
+        public string participantID;
 
-    public static WriteRodAndFrameData Instance {
-        get { return instance; }
-    }
-
-    //This allows the start function to be called only once.
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
+        public static WriteRodAndFrameData Instance {
+            get { return instance; }
         }
-        else
-            instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
-    }
+        //This allows the start function to be called only once.
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+            else
+                instance = this;
 
-    // Use this for initialization
-    private void Start () {
-        WriteToFile("subject ID", "trial", "rod origin", "frame origin", "selection");
-    }
-	
+            DontDestroyOnLoad(this.gameObject);
+        }
 
-    public void WriteToFile(string a, string b, string c, string d, string e)
-    {
+        // Use this for initialization
+        private void Start() {
+            WriteToFile("subject ID", "trial", "head x", "head y", "head z", "rod origin", "frame origin", "selection");
+        }
 
-        string stringLine = a + "," + b + "," + c + "," + d + "," + e;
+
+        public void WriteToFile(string a, string b, string c, string d, string e, string f, string g, string h) {
+
+            string stringLine = a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h;
 
         System.IO.StreamWriter file = new System.IO.StreamWriter("./Logs/" + participantID + "_log.csv", true);
         file.WriteLine(stringLine);
