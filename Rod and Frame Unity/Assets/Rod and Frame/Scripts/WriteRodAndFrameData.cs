@@ -28,13 +28,13 @@ namespace RodAndFrame {
 
         // Use this for initialization
         private void Start() {
-            WriteToFile("subject ID", "trial", "head x", "head y", "head z", "rod origin", "frame origin", "selection");
+            WriteToFile("subject ID", "trial", "repetition", "head x", "head y", "head z", "rod origin", "frame origin", "selection");
         }
 
 
-        public void WriteToFile(string a, string b, string c, string d, string e, string f, string g, string h) {
+        public void WriteToFile(string a, string b, string c, string d, string e, string f, string g, string h, string i) {
 
-            string stringLine = a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h;
+            string stringLine = a + "," + b + "," + c + "," + d + "," + e + "," + f + "," + g + "," + h + "," + i;
 
         System.IO.StreamWriter file = new System.IO.StreamWriter("./Logs/" + participantID + "_log.csv", true);
         file.WriteLine(stringLine);

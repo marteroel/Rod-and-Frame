@@ -108,10 +108,10 @@ using UnityEngine.SceneManagement;
  			    yield return StartCoroutine(panelFader.FadeIn());
 			    // Wait for ET to be initialized
 			
-			    Debug.Log ("ET Initialized on count " +count);
+			   // Debug.Log ("ET Initialized on count " +count);
 
 			    // Set rod and frame angles
-			    Debug.Log(rodandframeSettingList[count].ToString());
+			    //Debug.Log(rodandframeSettingList[count].ToString());
 			    frameAngle = rodandframeSettingList[count].FrameAngle;
 			    rodAngle = rodandframeSettingList[count].RodAngle;
 
@@ -129,7 +129,7 @@ using UnityEngine.SceneManagement;
 
                 // Start recording rod and frame position
                 if(writeData != null)
-                 writeData.WriteToFile(writeData.participantID, (count*(setCount+1)).ToString(), 
+                 writeData.WriteToFile(writeData.participantID, count.ToString(), setCount.ToString(),
                      head.transform.rotation.eulerAngles.x.ToString(), head.transform.rotation.eulerAngles.y.ToString(), head.transform.rotation.eulerAngles.z.ToString(),
                      rodandframeSettingList[count].RodAngle.ToString(), rodandframeSettingList[count].FrameAngle.ToString(), Rod.transform.rotation.eulerAngles.z.ToString());
                 count += 1;

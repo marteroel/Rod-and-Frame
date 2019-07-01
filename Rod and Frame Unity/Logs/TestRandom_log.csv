@@ -1,0 +1,13 @@
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+TestRandom,0,0,0,0,0,-20,0,357.5051
+TestRandom,1,0,0,0,0,17,-20,358.5352
+TestRandom,2,0,0,0,0,-9,20,356.7617
+TestRandom,0,1,0,0,0,-9,20,2.601506
+TestRandom,1,1,0,0,0,-20,0,359.2896
+TestRandom,2,1,0,0,0,17,-20,356.9924
+TestRandom,0,2,0,0,0,-20,0,358.9456
+TestRandom,1,2,0,0,0,-9,20,358.7975
+TestRandom,2,2,0,0,0,17,-20,359.3881
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+TestRandom,0,0,0,0,0,35,-20,14.59757
+TestRandom,1,0,0,0,0,22,20,22
