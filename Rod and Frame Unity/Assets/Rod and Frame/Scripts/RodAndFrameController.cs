@@ -69,7 +69,7 @@ using UnityEngine.SceneManagement;
         System.Collections.Generic.List<RodAndFrameSetting> rodandframeSettingList = new System.Collections.Generic.List<RodAndFrameSetting>();
 
         // Use this for initialization
-        void Awake() {
+        void Start() {
 
             panelFader = GameObject.FindObjectOfType<UIFader>();
 
@@ -91,7 +91,8 @@ using UnityEngine.SceneManagement;
 		    StartCoroutine (StartGame ());
 	    }
 
-	    private IEnumerator WaitForConfirmation()
+
+        private IEnumerator WaitForConfirmation()
 	    {
 		    while (!isConfirmed) {
 			    yield return null;
@@ -128,7 +129,7 @@ using UnityEngine.SceneManagement;
 
                 // Start recording rod and frame position
                 if(writeData != null)
-                 writeData.WriteToFile(writeData.participantID, (count *(setCount+1)).ToString(), 
+                 writeData.WriteToFile(writeData.participantID, (count*(setCount+1)).ToString(), 
                      head.transform.rotation.eulerAngles.x.ToString(), head.transform.rotation.eulerAngles.y.ToString(), head.transform.rotation.eulerAngles.z.ToString(),
                      rodandframeSettingList[count].RodAngle.ToString(), rodandframeSettingList[count].FrameAngle.ToString(), Rod.transform.rotation.eulerAngles.z.ToString());
                 count += 1;
