@@ -11,3 +11,16 @@ TestRandom,2,2,0,0,0,17,-20,359.3881
 subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
 TestRandom,0,0,0,0,0,35,-20,14.59757
 TestRandom,1,0,0,0,0,22,20,22
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+TestRandom,0,0,0,0,0,9,0,3.6542
+TestRandom,1,0,0,0,0,37,-20,6.51325
+TestRandom,2,0,0,0,0,-11,20,4.626524
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+TestRandom,0,0,0,0,0,-11,-20,9.000421
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+TestRandom,0,0,357.79,346.2567,359.0838,24,0,0.4000373
+TestRandom,1,0,357.7303,346.2427,359.0525,-25,-20,352.401
+TestRandom,2,0,357.7104,346.2569,359.0712,38,20,359.1999
+TestRandom,0,1,357.7203,346.2613,359.0734,24,0,356.1998
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection
+subject ID,trial,repetition,head x,head y,head z,rod origin,frame origin,selection

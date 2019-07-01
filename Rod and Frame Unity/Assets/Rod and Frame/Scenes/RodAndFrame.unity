@@ -588,6 +588,8 @@ MonoBehaviour:
   trialDictionary: {fileID: 1934868068}
   writeData: {fileID: 1934868076}
   Delta: 0.2
+  useKeyboardInput: 1
+  useMouseInput: 1
 --- !u!81 &1934868070
 AudioListener:
   m_ObjectHideFlags: 0

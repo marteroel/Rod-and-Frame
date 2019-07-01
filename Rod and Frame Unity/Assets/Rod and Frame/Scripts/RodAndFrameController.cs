@@ -51,7 +51,9 @@ using UnityEngine.SceneManagement;
 
         public float Delta = 1f;
 
-        bool isKeyboardActive = false;
+        public bool useKeyboardInput, useMouseInput;
+
+        bool isInputActive = false;
         bool isStopConditionReached = false;
         bool isConfirmed = false;
         bool isETInitialized = false;
@@ -123,7 +125,7 @@ using UnityEngine.SceneManagement;
 
 
 			    // Set keyboard Active
-			    isKeyboardActive = true;
+			    isInputActive = true;
 			    // wait for confirm key to be pressed
 			    yield return StartCoroutine(WaitForConfirmation());
 
@@ -138,7 +140,7 @@ using UnityEngine.SceneManagement;
                 //rodandframeData.IsRecorded = false;
 
                 // Set keyboard inactive
-                isKeyboardActive = false;
+                isInputActive = false;
 
 			    // Check stopping condition 
 			    if (count == rodandframeSettingList.Count) {
@@ -161,33 +163,45 @@ using UnityEngine.SceneManagement;
 
 	    void Update () {
 
-		    if (isKeyboardActive) {
-			    var z = Rod.transform.localRotation.eulerAngles.z;
-			    // Keyboard
-			    if (Input.GetKey ("left")) {			
-				    Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + Delta);
-			    }
-			    if (Input.GetKey ("right")) {
-				    Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, z - Delta);
-			    }
-                if (Input.GetKey("a"))
-                {
-                    Rod.transform.localRotation = Quaternion.Euler(Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + 0.1f * Delta);
-                }
-                if (Input.GetKey("d"))
-                {
-                    Rod.transform.localRotation = Quaternion.Euler(Rod.transform.localRotation.x, Rod.transform.localRotation.y, z -0.1f* Delta);
-                }
-                if (Input.GetKeyDown("space"))
-			    {
-				    isConfirmed = true;	
-			    }
+            if (isInputActive) {
+                var z = Rod.transform.localRotation.eulerAngles.z;
 
-			    Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));
+                // Keyboard
+                if (useKeyboardInput) {  
+			        if (Input.GetKey ("left")) {			
+				        Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + Delta);
+			        }
+			        if (Input.GetKey ("right")) {
+				        Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, z - Delta);
+			        }
+                    if (Input.GetKeyDown("space"))
+			        {
+				        isConfirmed = true;	
+			        }
+
+			        Rod.transform.localRotation = Quaternion.Euler (Rod.transform.localRotation.x, Rod.transform.localRotation.y, Rod.transform.localRotation.eulerAngles.z - Delta*Input.GetAxis("Horizontal"));
  
-		    }
+		        }
+                //Mouse
+                if (useMouseInput)
+                {
+                    if (Input.GetMouseButton(1))
+                    {
+                        Rod.transform.localRotation = Quaternion.Euler(Rod.transform.localRotation.x, Rod.transform.localRotation.y, z + Delta);
+                    }
 
-	    }
+                    if (Input.GetMouseButton(0))
+                    {
+                        Rod.transform.localRotation = Quaternion.Euler(Rod.transform.localRotation.x, Rod.transform.localRotation.y, z - Delta);
+                    }
+                    if (Input.GetMouseButton(2))
+                    {
+                        isConfirmed = true;
+                    }
+                }
+            }
+
+        }
 
     }
 }
